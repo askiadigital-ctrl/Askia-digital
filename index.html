@@ -347,6 +347,93 @@
   @keyframes wa-pulse{0%{transform:scale(1);opacity:.55;}100%{transform:scale(1.7);opacity:0;}}
   @media (prefers-reduced-motion: reduce){.wa-pulse{animation:none;display:none;}}
   @media (max-width:640px){.whatsapp-float{width:52px;height:52px;bottom:16px;right:16px;}.whatsapp-float svg{width:26px;height:26px;}}
+
+  /* ASKIA DIGITAL — premium editorial redesign */
+  :root{--ink:#12212b;--muted:#66737a;--line:#d9e1de;--bg:#f7f8f5;--bg-soft:#edf2ef;--teal:#0b766e;--teal-dark:#07534f;--teal-soft:#dcefeb;--violet:#3e356f;--violet-dark:#2c2458;--violet-soft:#e8e6f1;--gold:#d89c3d;--gold-dark:#966820;--radius:24px;}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;}
+  h1,h2,h3{font-family:'Syne',sans-serif;letter-spacing:-.045em;}
+  .wrap{max-width:1240px;padding:0 28px;}
+  nav{background:rgba(247,248,245,.88);border-bottom:1px solid var(--line);}
+  nav .wrap{height:88px;}
+  .logo{font-size:1rem;letter-spacing:-.02em;}
+  .logo-mark{width:16px;height:16px;border-radius:3px;background:var(--gold);}
+  .nav-links{gap:28px;}
+  .nav-links a{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+  .nav-cta{background:var(--ink);border-radius:4px;box-shadow:none;padding:13px 20px;font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;}
+  .nav-cta:hover{background:var(--teal-dark);box-shadow:none;}
+  .hero{padding:86px 0 104px;background:var(--bg);}
+  .hero::after{height:90px;background:linear-gradient(180deg,transparent,var(--bg-soft));}
+  .hero-grid{grid-template-columns:1.05fr .95fr;gap:72px;}
+  .eyebrow{color:var(--teal-dark);background:transparent;border:1px solid var(--line);border-radius:3px;padding:8px 11px;font-size:.66rem;letter-spacing:.16em;}
+  .hero h1{font-size:clamp(2.8rem,6vw,5.6rem);line-height:.98;max-width:700px;margin-bottom:28px;}
+  .grad-text{background:linear-gradient(115deg,var(--teal),var(--violet));-webkit-background-clip:text;background-clip:text;}
+  .hero p.sub{font-size:1rem;max-width:500px;line-height:1.75;color:var(--muted);}
+  .btn-primary{background:var(--teal-dark);border-radius:3px;padding:16px 22px;box-shadow:0 14px 26px rgba(7,83,79,.18);font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;}
+  .btn-primary:hover{background:var(--violet-dark);box-shadow:0 16px 30px rgba(44,36,88,.22);}
+  .btn-outline{border:1px solid var(--ink);border-radius:3px;padding:15px 21px;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;}
+  .hero-visual{height:470px;background:var(--ink);border-radius:4px;overflow:hidden;padding:26px;}
+  .hero-visual:before{content:'ASKIA / DIGITAL';position:absolute;z-index:2;top:26px;left:26px;color:#fff;font:500 .65rem 'JetBrains Mono';letter-spacing:.18em;}
+  .hero-visual:after{content:'STRATEGY  •  DESIGN  •  GROWTH';position:absolute;z-index:2;bottom:24px;left:26px;color:rgba(255,255,255,.62);font:500 .58rem 'JetBrains Mono';letter-spacing:.12em;}
+  .hero-parallax{height:100%;border:1px solid rgba(255,255,255,.18);}
+  .blob{filter:blur(70px);opacity:.5;}
+  .blob-teal{background:var(--teal);width:330px;height:330px;top:50px;right:-60px;}
+  .blob-violet{background:var(--violet);width:260px;height:260px;bottom:-30px;left:-60px;}
+  .float-card{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.94);border-radius:4px;box-shadow:0 20px 50px rgba(0,0,0,.2);}
+  .card-analytics{top:92px;left:28px;}
+  .card-growth{top:210px;right:32px;}
+  .card-content{bottom:42px;right:32px;}
+  .services,.method,.audience{background:var(--bg-soft);border-color:var(--line);}
+  .services,.why,.method,.work,.audience,.testimonials{padding:104px 0;}
+  .section-head{text-align:left;max-width:680px;margin:0 0 52px;}
+  .section-head .eyebrow{margin-bottom:18px;}
+  .section-head h2{font-size:clamp(2rem,4vw,3.5rem);line-height:1.02;}
+  .section-head p{font-size:.98rem;line-height:1.7;max-width:540px;}
+  .service-grid,.steps,.quotes{gap:14px;}
+  .service-card,.step,.quote,.faq-item{border:1px solid var(--line);border-radius:4px;background:var(--bg);box-shadow:none;}
+  .service-card{padding:30px 26px;min-height:230px;}
+  .service-card:hover,.step:hover,.quote:hover{transform:translateY(-5px);box-shadow:0 18px 34px rgba(18,33,43,.09);}
+  .icon-box{border-radius:3px;background:var(--teal-soft);}
+  .service-card:nth-child(2n) .icon-box{background:var(--violet-soft);}
+  .service-card h3,.step h3{font-size:1.25rem;letter-spacing:-.03em;}
+  .why-grid{gap:86px;}
+  .why-visual{border-radius:4px;background:var(--ink);height:390px;}
+  .why-visual .grid-lines{background-image:linear-gradient(rgba(255,255,255,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.1) 1px,transparent 1px);}
+  .why-badge{border-radius:3px;bottom:22px;left:22px;}
+  .why-badge .value{color:var(--teal-dark);}
+  .step{padding:30px 26px;min-height:220px;}
+  .step .num{color:var(--gold-dark);}
+  .work-grid{gap:14px;}
+  .work-card{border-radius:4px;height:260px;}
+  .work-card .bg{background:linear-gradient(135deg,#b9dfd7,var(--teal-soft));}
+  .work-card:nth-child(2n) .bg{background:linear-gradient(135deg,#d7d1e6,var(--violet-soft));}
+  .work-tag{border-radius:3px;padding:10px 13px;}
+  .tag{border-radius:3px;background:var(--bg);padding:14px 19px;}
+  .quote{padding:28px 24px;min-height:230px;}
+  .cta-final{background:var(--ink);padding:110px 0;}
+  .cta-final h2{font-size:clamp(2.2rem,5vw,4.2rem);letter-spacing:-.05em;}
+  footer{background:var(--bg);border-color:var(--line);}
+  .footer-col .mono{color:var(--teal-dark);}
+  .social-row a{border-radius:3px;}
+  .whatsapp-float{border-radius:4px;}
+  @media (max-width:860px){
+    .wrap{padding:0 20px;}
+    nav .wrap{height:72px;}
+    .hero{padding:54px 0 74px;}
+    .hero-grid{display:flex;flex-direction:column;gap:38px;}
+    .hero-text{order:1;}
+    .hero-visual{order:0;width:100%;height:330px;}
+    .hero h1{font-size:clamp(2.8rem,14vw,4.7rem);}
+    .hero p.sub{font-size:.94rem;}
+    .section-head{margin-bottom:34px;}
+    .section-head h2{font-size:2.3rem;}
+    .services,.why,.method,.work,.audience,.testimonials{padding:74px 0;}
+    .service-grid,.steps,.work-grid,.quotes{grid-template-columns:1fr;}
+    .why-grid{gap:38px;}
+    .why-visual{height:260px;}
+    .service-card,.step{min-height:0;}
+    .cta-final{padding:76px 0;}
+    .cta-final h2{font-size:2.7rem;}
+  }
 </style>
 </head>
 <body>
