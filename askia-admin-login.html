@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connexion administrateur — Askia Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#0FAFA0; --teal-dark:#0B8377;
+    --violet:#7C4DFF; --violet-dark:#5B32D6;
+    --gold:#C9A227;
+    --ink:#14161B; --ink-soft:#1B1E25;
+    --line: rgba(255,255,255,0.09);
+    --muted:#8B8FA3;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--ink);
+    color:#fff;
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    overflow:hidden;
+    padding:24px;
+  }
+
+  /* ambient brand glow — quiet, not decorative overload */
+  .glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.28;pointer-events:none;}
+  .glow-teal{width:480px;height:480px;background:var(--teal);top:-160px;left:-140px;}
+  .glow-violet{width:440px;height:440px;background:var(--violet);bottom:-160px;right:-120px;}
+
+  .grid-overlay{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px, transparent 1px),linear-gradient(90deg, var(--line) 1px, transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 60% 50% at 50% 50%, #000 40%, transparent 100%);pointer-events:none;}
+
+  .panel{
+    position:relative;z-index:1;
+    width:100%;max-width:408px;
+    background:var(--ink-soft);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:40px 36px 34px;
+    box-shadow:0 30px 80px rgba(0,0,0,0.45);
+    animation:rise .6s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:34px;}
+  .logo-mark{width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,var(--teal),var(--violet));transform:rotate(45deg);flex-shrink:0;}
+  .brand-name{font-family:'Syne',sans-serif;font-weight:800;font-size:.98rem;letter-spacing:.02em;}
+
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+  h1{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;line-height:1.25;margin-bottom:8px;}
+  .sub{color:var(--muted);font-size:.88rem;line-height:1.5;margin-bottom:30px;}
+
+  form{display:flex;flex-direction:column;gap:16px;}
+  .field{display:flex;flex-direction:column;gap:7px;}
+  label{font-size:.78rem;font-weight:500;color:var(--muted);}
+  .input-wrap{position:relative;display:flex;align-items:center;}
+  .input-wrap svg{position:absolute;left:14px;width:16px;height:16px;stroke:var(--muted);pointer-events:none;transition:stroke .2s ease;}
+  input{
+    width:100%;
+    background:#0F1116;
+    border:1px solid var(--line);
+    border-radius:11px;
+    padding:13px 14px 13px 40px;
+    color:#fff;
+    font-family:'Inter',sans-serif;
+    font-size:.92rem;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  input::placeholder{color:#565A68;}
+  input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(15,175,160,0.16);}
+  .input-wrap:focus-within svg{stroke:var(--teal);}
+
+  .toggle-pw{position:absolute;right:12px;background:none;border:none;cursor:pointer;padding:6px;display:flex;color:var(--muted);transition:color .2s ease;}
+  .toggle-pw:hover{color:#fff;}
+  .toggle-pw svg{width:17px;height:17px;stroke:currentColor;}
+
+  .row-between{display:flex;align-items:center;justify-content:space-between;margin-top:2px;}
+  .remember{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--muted);cursor:pointer;user-select:none;}
+  .remember input[type="checkbox"]{width:15px;height:15px;accent-color:var(--teal);cursor:pointer;padding:0;}
+  .forgot{font-size:.82rem;color:var(--muted);text-decoration:none;transition:color .2s ease;}
+  .forgot:hover{color:var(--teal);}
+
+  .submit{
+    margin-top:6px;
+    background:linear-gradient(120deg,var(--teal),var(--violet));
+    color:#fff;border:none;border-radius:11px;
+    padding:14px;font-weight:600;font-size:.92rem;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    cursor:pointer;
+    transition:transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s ease, opacity .2s ease;
+    box-shadow:0 12px 26px rgba(124,77,255,0.28);
+  }
+  .submit:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(124,77,255,0.36);}
+  .submit:active{transform:translateY(0);}
+  .submit:disabled{opacity:.72;cursor:default;transform:none;}
+
+  .spinner{width:15px;height:15px;border-radius:50%;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;animation:spin .7s linear infinite;display:none;}
+  .submit.loading .spinner{display:inline-block;}
+  .submit.loading .submit-label{opacity:.85;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .alert{
+    font-size:.82rem;padding:11px 13px;border-radius:10px;
+    display:none;align-items:flex-start;gap:8px;line-height:1.4;
+  }
+  .alert.show{display:flex;}
+  .alert svg{width:15px;height:15px;flex-shrink:0;margin-top:1px;}
+  .alert-error{background:rgba(255,90,90,0.1);border:1px solid rgba(255,90,90,0.25);color:#FF9B9B;}
+
+  .divider{display:flex;align-items:center;gap:12px;margin:26px 0 18px;color:var(--muted);font-size:.72rem;}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  .footnote{text-align:center;font-size:.78rem;color:var(--muted);line-height:1.6;}
+  .footnote a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;}
+  .footnote a:hover{color:var(--teal);}
+
+  .security-note{display:flex;align-items:center;gap:8px;margin-top:26px;padding-top:20px;border-top:1px solid var(--line);color:#565A68;font-size:.72rem;font-family:'JetBrains Mono',monospace;letter-spacing:.02em;}
+  .security-note svg{width:13px;height:13px;stroke:#565A68;flex-shrink:0;}
+
+  @media (prefers-reduced-motion: reduce){
+    .panel{animation:none;}
+    .spinner{animation:none;}
+  }
+
+  @media (max-width:420px){
+    .panel{padding:32px 24px 28px;}
+    h1{font-size:1.32rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="glow glow-teal"></div>
+<div class="glow glow-violet"></div>
+<div class="grid-overlay"></div>
+
+<div class="panel">
+  <div class="brand">
+    <span class="logo-mark"></span>
+    <span class="brand-name">ASKIA DIGITAL</span>
+  </div>
+
+  <div class="eyebrow">Espace administrateur</div>
+  <h1>Connexion</h1>
+  <p class="sub">Accédez au tableau de bord pour gérer formations, clients, commandes et paiements.</p>
+
+  <div class="alert alert-error" id="alertError">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+    <span id="alertText">Adresse e-mail ou mot de passe incorrect.</span>
+  </div>
+
+  <form id="loginForm" novalidate>
+    <div class="field">
+      <label for="email">Adresse e-mail</label>
+      <div class="input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 7l9 6 9-6"/></svg>
+        <input type="email" id="email" name="email" placeholder="admin@askiadigital.com" autocomplete="username" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="password">Mot de passe</label>
+      <div class="input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 018 0v3"/></svg>
+        <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required style="padding-right:42px;">
+        <button type="button" class="toggle-pw" id="togglePw" aria-label="Afficher le mot de passe">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" id="eyeIcon"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="row-between">
+      <label class="remember">
+        <input type="checkbox" id="remember">
+        Se souvenir de moi
+      </label>
+      <a href="#" class="forgot" id="forgotLink">Mot de passe oublié ?</a>
+    </div>
+
+    <button type="submit" class="submit" id="submitBtn">
+      <span class="spinner"></span>
+      <span class="submit-label">Se connecter</span>
+    </button>
+  </form>
+
+  <div class="security-note">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M7.5 10.5v-3a4.5 4.5 0 019 0v3"/></svg>
+    Accès strictement réservé à l'administration Askia Digital
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://tfsacbhavdrjomdolzbp.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRmc2FjYmhhdmRyam9tZG9semJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY0NDM5MjgsImV4cCI6MjEwMjAxOTkyOH0.4VPMfKO1DS9V19_m2n04QAfOgilJ8VwEgX0k32Hg8I8';
+
+  const form = document.getElementById('loginForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const alertError = document.getElementById('alertError');
+  const alertText = document.getElementById('alertText');
+  const togglePw = document.getElementById('togglePw');
+  const passwordInput = document.getElementById('password');
+  const eyeIcon = document.getElementById('eyeIcon');
+
+  togglePw.addEventListener('click', ()=>{
+    const isPw = passwordInput.type === 'password';
+    passwordInput.type = isPw ? 'text' : 'password';
+    eyeIcon.innerHTML = isPw
+      ? '<path d="M3 3l18 18M10.6 10.6a2 2 0 002.8 2.8M9.9 5.1A10.4 10.4 0 0112 5c7 0 10.5 7 10.5 7a13.8 13.8 0 01-3.1 4M6.5 6.6C3.6 8.4 1.5 12 1.5 12s3.5 7 10.5 7c1.3 0 2.5-.2 3.6-.6"/>'
+      : '<path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/>';
+  });
+
+  function showError(message){
+    alertText.textContent = message;
+    alertError.classList.add('show');
+  }
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    alertError.classList.remove('show');
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+
+    const email = document.getElementById('email').value.trim();
+    const password = passwordInput.value;
+
+    try{
+      // 1. Sign in via the Supabase Auth REST endpoint directly (no external SDK needed)
+      const authRes = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
+        body: JSON.stringify({ email, password })
+      });
+      const authData = await authRes.json();
+
+      if(!authRes.ok){
+        showError(authData.error_description === 'Invalid login credentials' || authData.msg === 'Invalid login credentials'
+          ? "Adresse e-mail ou mot de passe incorrect."
+          : (authData.error_description || authData.msg || "Connexion impossible."));
+        return;
+      }
+
+      const accessToken = authData.access_token;
+      const userId = authData.user.id;
+
+      // 2. Confirm this account is actually an admin (not just any authenticated user)
+      const adminRes = await fetch(`${SUPABASE_URL}/rest/v1/admin_profiles?select=id&id=eq.${userId}`, {
+        headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${accessToken}` }
+      });
+      const adminRows = await adminRes.json();
+
+      if(!adminRes.ok || !Array.isArray(adminRows) || adminRows.length === 0){
+        showError("Ce compte n'a pas accès à l'espace administrateur.");
+        return;
+      }
+
+      submitBtn.querySelector('.submit-label').textContent = 'Connecté ✓';
+      // The dashboard page doesn't exist yet — this is where the redirect will go once it's built.
+      // window.location.href = '/admin/dashboard.html';
+
+    } catch(err){
+      showError("Une erreur est survenue. Réessayez.");
+    } finally{
+      submitBtn.classList.remove('loading');
+      submitBtn.disabled = false;
+    }
+  });
+
+  document.getElementById('forgotLink').addEventListener('click', async (e)=>{
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    if(!email){ alert('Renseigne ton adresse e-mail dans le champ ci-dessus, puis clique à nouveau ici.'); return; }
+    try{
+      const res = await fetch(`${SUPABASE_URL}/auth/v1/recover`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
+        body: JSON.stringify({ email })
+      });
+      alert(res.ok ? `Un e-mail de réinitialisation a été envoyé à ${email}.` : "Impossible d'envoyer l'e-mail pour le moment.");
+    } catch(err){
+      alert("Impossible d'envoyer l'e-mail pour le moment.");
+    }
+  });
+</script>
+</body>
+</html>
